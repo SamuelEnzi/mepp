@@ -6,4 +6,4 @@ cp .example.env .env.production
 npm install
 npm run build
 
-nano .env
+nano .env.production
