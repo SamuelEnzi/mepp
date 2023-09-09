@@ -1,6 +1,11 @@
+"use client"
+
 import React from 'react'
 import totalItems from './total-items'
+import Api from '@/lib/api'
+import { useEffect, useState } from 'react'
 
+import { formatNumber } from '@/lib/format'
 import {
     Card,
     CardContent,
@@ -9,52 +14,62 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 
-
-const CardItems = [
-    {
-        title: "Total Item Count",
-        value: "12.241.432",
-        sub: "+20.1% from last day",
-        icon: totalItems()
-    },
-    {
-        title: "Uranium Trend",
-        value: "+2350",
-        sub: "+180.1% from last day",
-        icon: totalItems()
-    },
-    {
-        title: "Averege Power Injection",
-        value: "72kRf",
-        sub: "+19% from last day",
-        icon: totalItems()
-    },
-    {
-        title: "Averege Power Usage",
-        value: "12kRf",
-        sub: "+201 since last day",
-        icon: totalItems()
-    }
-]
-
 export function StatCards() {
+    const [totalItemObject, setItemCountInfo] = useState({
+        value: '',
+        sub: ''
+    });
+
+    const [uraniumObject, setUraniumObject] = useState({
+        value: '',
+        sub: ''
+    })
+
+    useEffect(() => {
+        Api.totalItemCount().then((itemCount) => {
+            setItemCountInfo({
+                value: formatNumber(itemCount.currentItemCount),
+                sub: `${itemCount.incrementPercentage > 0 ? '+' : '-'}${itemCount.incrementPercentage}% from last day '${formatNumber(itemCount.yesterdayItemCount)}'`,
+            });
+        });
+
+        Api.uraniumTrend().then((uraniumTrend) => {
+            setUraniumObject({
+                value: formatNumber(uraniumTrend.currentItemCount),
+                sub: `${uraniumTrend.incrementPercentage > 0 ? '+' : '-'}${uraniumTrend.incrementPercentage}% from last day '${formatNumber(uraniumTrend.yesterdayItemCount)}'`,
+            });
+        });
+    }, []);
+
     return (
         <>
-            {CardItems.map((card, index) => (
-                <Card key={index}>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                            {card.title}
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{card.value}</div>
-                        <p className="text-xs text-muted-foreground">
-                            {card.sub}
-                        </p>
-                    </CardContent>
-                </Card>
-            ))}
+            <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                        Total Item Count
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="text-2xl font-bold">{totalItemObject.value}</div>
+                    <p className="text-xs text-muted-foreground">
+                        {totalItemObject.sub}
+                    </p>
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                        Uranium Trend
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="text-2xl font-bold">{uraniumObject.value}</div>
+                    <p className="text-xs text-muted-foreground">
+                        {uraniumObject.sub}
+                    </p>
+                </CardContent>
+            </Card>
         </>
     )
 }

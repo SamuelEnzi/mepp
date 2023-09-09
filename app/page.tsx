@@ -1,8 +1,6 @@
 import { Metadata } from "next"
-import Image from "next/image"
 
 import { StatCards } from "@/components/dashboard/stat-cards"
-import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -20,7 +18,6 @@ export const metadata: Metadata = {
   description: "Minecraft ME System Interface Program",
 }
 
-
 export default function Home() {
   return (
     <>
@@ -30,7 +27,6 @@ export default function Home() {
             <MainNav className="mx-6" />
           </div>
         </div>
-
 
         <div className="flex-1 space-y-4 p-8 pt-6" id="dashboard">
           <div className="flex items-center justify-between space-y-2">

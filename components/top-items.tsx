@@ -1,71 +1,44 @@
+"use client"
+
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
+import { useState, useEffect } from "react";
+import Api from "@/lib/api";
+import { Item } from "@/lib/types";
+
+import { formatNumber } from "@/lib/format";
 
 export function TopItems() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    Api.topItems().then((items) => {
+        setData(items as any);
+    }).catch((error) => {
+        console.error("Failed to data", error.message);
+    });
+}, []);
+
+
   return (
     <div className="space-y-8">
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/01.png" alt="Avatar" />
-          <AvatarFallback>CS</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Cobblestone</p>
-          <p className="text-sm text-muted-foreground">
-            minecraft:cobblestone
-          </p>
+      <div className="space-y-8">
+      {data.map((item: Item, index) => (
+        <div key={index} className="flex items-center">
+          <div className="ml-4 space-y-1">
+            <p className="text-sm font-medium leading-none">{item.label}</p>
+            <p className="text-sm text-muted-foreground">
+              {item.name}
+            </p>
+          </div>
+          <div className="ml-auto font-medium">{formatNumber(item.amount)}</div>
         </div>
-        <div className="ml-auto font-medium">1.999</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
-          <AvatarImage src="/avatars/02.png" alt="Avatar" />
-          <AvatarFallback>DR</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Dirt</p>
-          <p className="text-sm text-muted-foreground">minecraft:dirt</p>
-        </div>
-        <div className="ml-auto font-medium">500</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/03.png" alt="Avatar" />
-          <AvatarFallback>ST</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Stone</p>
-          <p className="text-sm text-muted-foreground">
-            minecraft:stone
-          </p>
-        </div>
-        <div className="ml-auto font-medium">200</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/04.png" alt="Avatar" />
-          <AvatarFallback>SA</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Sand</p>
-          <p className="text-sm text-muted-foreground">minecraft:sand</p>
-        </div>
-        <div className="ml-auto font-medium">40</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/05.png" alt="Avatar" />
-          <AvatarFallback>SD</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Grass</p>
-          <p className="text-sm text-muted-foreground">minecraft:grass</p>
-        </div>
-        <div className="ml-auto font-medium">5</div>
-      </div>
+      ))}
+    </div>
+
     </div>
   )
 }
