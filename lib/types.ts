@@ -17,3 +17,13 @@ export interface UraniumTrend {
     day: string, 
     dailyAmount: number 
 }
+
+export interface EnergyStats {
+    id: number,
+    powerInjection: number,
+    powerUsage: number,
+    idlePowerUsage: number,
+    maxStoredPower: number,
+    storedPower: number,
+    data: JSON
+}

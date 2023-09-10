@@ -4,7 +4,7 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import Api from "@/lib/api"
 import { useState, useEffect } from "react";
 
-export function Overview() {
+export function UraniumHistory() {
 
   const [data, setData] = useState([]);
 
