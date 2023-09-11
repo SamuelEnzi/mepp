@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { BarChart, Bar, YAxis, ResponsiveContainer } from 'recharts';
 import Api from "@/lib/api"
 import { useState, useEffect } from "react";
 
@@ -23,13 +23,6 @@ export function UraniumHistory() {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>
-        <XAxis
-          dataKey="name"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-        />
         <YAxis
           stroke="#888888"
           fontSize={12}

@@ -21,11 +21,11 @@ export function Overview() {
                 </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
                 <StatCards />
             </div>
-            <div className="grid gap-0 md:gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-1 md:col-span-4 lg:col-span-4 ">
+            <div className="grid gap-0 lg:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-8 xl:grid-cols-7">
+                <Card className="col-span-1 md:col-span-4 lg:col-span-4 xl:col-span-4">
                     <CardHeader>
                         <CardTitle>Overview</CardTitle>
                     </CardHeader>
@@ -33,7 +33,7 @@ export function Overview() {
                         <UraniumHistory />
                     </CardContent>
                 </Card>
-                <Card className="md:col-span-3 col-span-4 mt-4 sm:mt-4 md:mt-0">
+                <Card className="col-span-1 md:col-span-3 lg:col-span-4 xl:col-span-3 mt-4 xs:mt-4 lg:mt-0">
                     <CardHeader>
                         <CardTitle>Top Items</CardTitle>
                         <CardDescription>
